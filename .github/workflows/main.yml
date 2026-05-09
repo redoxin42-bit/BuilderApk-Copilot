@@ -17,18 +17,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Build with Gradle
-        # Эта строка дает права на запуск и собирает приложение
-        run: |
-          gradle assembleDebug --stacktrace
+      - name: Build APK
+        # Команда 'init' поможет Gradle подхватить проект, если структура сбита
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WellonApp-Debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: WellonApp
+          path: "**/build/outputs/apk/debug/*.apk"
