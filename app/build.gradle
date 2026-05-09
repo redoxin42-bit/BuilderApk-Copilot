@@ -1,9 +1,12 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+}
+
 android {
-    namespace 'com.wellon.coding'
+    namespace 'com.wellon.builder'
     compileSdk 33
     defaultConfig {
-        applicationId "com.wellon.coding"
+        applicationId "com.wellon.builder"
         minSdk 21
         targetSdk 33
         versionCode 1
