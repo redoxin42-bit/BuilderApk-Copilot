@@ -3,11 +3,13 @@ name: Build APK
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Позволяет запускать сборку вручную кнопкой
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -17,17 +19,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: gradle
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build with Gradle
-        # Мы используем 'gradle', так как 'gradlew' может отсутствовать в репозитории
+        # Используем встроенный gradle, так как gradlew у тебя может быть битым
         run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: WellonApp-Debug
+          name: WellonApp
           path: app/build/outputs/apk/debug/*.apk
